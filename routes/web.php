@@ -28,6 +28,16 @@ Route::get('/tomate', function () {
     return view('tomate');
 });
 
+Route::get('/nosotros', function () {
+    return view('nosotros');
+});
+
+Route::get('/calidad', function () {
+    return view('calidad');
+});
+
+
+
 Route::get('/perfil','PerfilController@index')->name('perfil');
 
 //Rutas Productos
@@ -38,3 +48,8 @@ Route::get('/productos/cancelRequisicion', 'ProductosController@cancelRequisicio
 Route::get('/Entradas/bodega', 'EntradaController@index');
 Route::post('/Entradas/guardar', 'EntradaController@guardar');
 Route::resource('almacenes','AlmacenesController');
+
+Route::get('/cambiarperfil','CambiarPerfilController@index')->name('cambiar perfil');
+
+Route::get('/catalogo','CatalogoController@index')->name('catalogo');
+Route::get('/catalogo/getProductosCat', 'CatalogoController@getProductos');

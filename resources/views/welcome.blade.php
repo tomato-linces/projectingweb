@@ -80,7 +80,7 @@
                     <br> 
                     <div class="col-md-8 col-md-offset-2" align="center">
                     <br>
-                        <a href="{{ route('home') }}" type="button" class="btn btn-primary" >Ver más</a>
+                        <a href="{{ url('/nosotros') }}" type="button" class="btn btn-primary" >Ver más</a>
                     </div>
                 </div>
                 
@@ -105,7 +105,7 @@
                     <br> 
                     <div class="col-md-8 col-md-offset-2" align="center">
                     <br>
-                        <a href="{{ route('home') }}" type="button" class="btn btn-primary" >Ver más</a>
+                        <a href="{{ route('catalogo') }}" type="button" class="btn btn-primary" >Ver más</a>
                     </div>
                 </div>
                 
@@ -121,7 +121,7 @@
                     </div>
                     <br>
                     <div align="center">
-                        <h2>Misión</h2>
+                        <h2>Calidad</h2>
                     </div>
                     <div class="col-md-8 col-md-offset-2">
                         Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
@@ -130,7 +130,7 @@
                     <br> 
                     <div class="col-md-8 col-md-offset-2" align="center">
                     <br>
-                        <a href="{{ route('home') }}" type="button" class="btn btn-primary" >Ver más</a>
+                        <a href="{{ url('/calidad') }}" type="button" class="btn btn-primary" >Ver más</a>
                     </div>
                 </div>
                 

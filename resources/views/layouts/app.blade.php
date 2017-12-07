@@ -18,6 +18,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <?php $post = TCG\Voyager\Models\Post::first(); ?>
 </head>
 
 <body>
@@ -50,11 +51,11 @@
                     <ul class="nav navbar-nav navbar-right">
                         <!-- Authentication Links -->
 
-                        <a class="navbar-brand text"  href="{{ url('/tomate') }}">
+                        <a class="navbar-brand text"  href="{{ url('/catalogo') }}">
                             Productos
                         </a>
 
-                        <a class="navbar-brand text"  href="{{ url('/tomate') }}">
+                        <a class="navbar-brand text"  href="{{ url('/nosotros') }}">
                             Nosotros
                         </a>
 
@@ -72,11 +73,13 @@
                                             Perfil
                                         </a>
                                     </li>
+                                    @can('edit', $post)
                                     <li>
                                         <a   href="{{ url('/productos') }}">
                                             Comprar
                                         </a>
                                     </li>
+                                    @endcan
                                     <li>
                                         <a href="{{ route('logout') }}"
                                             onclick="event.preventDefault();

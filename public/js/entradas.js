@@ -17,7 +17,7 @@
         });    
       }
 	    $scope.cargarAlmacenes = function(){
-        $http.get("/almacenes")
+        $http.get("/bodegas")
         .success(function(data){
           console.log(data);
             $scope.almacenes =  data;
@@ -31,10 +31,7 @@
         $scope.lista.push({producto:$scope.actual.producto,
                             cantidad:1,
                             almacen:$scope.actual.almacen,
-                            fecha_caducidad:""+fecha.getFullYear()+(fecha.getMonth()+1)+fecha.getDate(),
-                            tonalidad:$scope.actual.tonalidad ,
-                            olor:$scope.actual.olor ,
-                            textura:$scope.actual.textura
+                            fecha_caducidad:""+fecha.getFullYear()+(fecha.getMonth()+1)+fecha.getDate()
                           });
         $scope.actual = "";
         console.log($scope.lista);

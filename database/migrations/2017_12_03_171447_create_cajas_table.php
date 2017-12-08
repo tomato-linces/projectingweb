@@ -17,13 +17,12 @@ class CreateCajasTable extends Migration
             $table->increments('id');
             $table->integer('cantidad');
             $table->date('fecha_caducidad');
-            $table->integer('almacen_id')->unsigned();
-            $table->foreign('almacen_id')->references('id')->on('almacenes');
+            $table->integer('bodega_id')->unsigned();
+            $table->foreign('bodega_id')->references('id')->on('bodegas');
             $table->integer('producto_id')->unsigned();
             $table->foreign('producto_id')->references('id')->on('productos');
-            $table->integer('tonalidad')->unsigned();
-            $table->integer('olor')->unsigned();
-            $table->integer('textura')->unsigned();
+            $table->integer('bodega_pertenece_id')->unsigned();
+            $table->foreign('bodega_pertenece_id')->references('id')->on('bodegas');
             $table->timestamps();
         });
     }

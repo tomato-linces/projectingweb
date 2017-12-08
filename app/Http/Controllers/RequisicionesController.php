@@ -31,10 +31,13 @@ class RequisicionesController extends Controller
 			$nlinea->subtotal = $linea['subtotal'];
 			$nlinea->producto_id = $linea['producto_id'];
 			$nlinea->requisicion_id = $linea['requisicion_id'];
-			$nlinea->save();	
+			
+			if(!$nlinea->save()){
+    			return -1;
+			}
     	}
 
-        return 'SUCCESS';
+        return 1;
 	}
 
 	public function saveDireccion(Request $request){

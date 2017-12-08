@@ -211,7 +211,7 @@ function saveData(){
                                                'numero': iNumero,
                                                'calle': sCalle,
                                                'cp': iCodigoPost,
-                                                _token: CSRF_TOKEN} ,
+                                                _token: CSRF_TOKEN}).done(
                                                 function (data) {
 
             var idDireccion = data;
@@ -223,7 +223,7 @@ function saveData(){
                                                'total': iTotal,
                                                'estado': 0,
                                                'urgente': bUrgente,
-                                                _token: CSRF_TOKEN} ,
+                                                _token: CSRF_TOKEN}).done(
                                                 function (data) {
 
                 var idRequisicion = data;
@@ -237,15 +237,26 @@ function saveData(){
                 var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
                 
                 $.post('/requisiciones/saveLineas', {Requisicion,
-                                                _token: CSRF_TOKEN},
+                                                _token: CSRF_TOKEN}).done(
                                                 function (data) {
+                        if(data == -1){
+                            alert("Ocurrio un error al finalizar la Requisición, favor de volverlo a intentar.");
+                        }
+                        else{
+                            alert("Requisición finalizada correctamente. Su número de requisición es: "+idRequisicion+". También puede consultarlo entrando en su perfil.");
+                            $('#btnFinalizar').attr('disabled', 'true');
+                        }
 
-                        var success = data;
-
+                }).fail(function(){
+                    alert("Ocurrio un error al guardar los Requisición, favor de volverlo a intentar.");
                 });
 
+            }).fail(function(){
+                alert("Ocurrio un error al guardar la Requisición, favor de volverlo a intentar.");
             });
 
+        }).fail(function(){
+            alert("Ocurrio un error al guardar la dirección, favor de volverlo a intentar.");
         });
 
 }

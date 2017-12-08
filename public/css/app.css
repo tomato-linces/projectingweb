@@ -29,26 +29,32 @@ footer {
   background-color:  #DCDCDC;
 }
 
+#imgLogo{
+	height: 70px;
+	padding: 2px 20px;
+}
+
+#imgLogo img{
+	height: 100%;
+}
+
 #imgNotPermission {
     width: 50%;
     height: auto;
 }
 
 #app{
-	margin-top: 90px;
-
+	margin-top: 70px;
 }
 
 #perfil{
-	 height: 300px;
-	  margin-left: 50%;
+	height: 300px;
+	margin-left: 50%;
     transform: translateX(-50%);
-
 }
 
 #PerfilDiv{
 	 padding: 0px;
-	
 	 overflow: hidden;
     
 }
@@ -57,3 +63,10 @@ footer {
   	visibility: hidden;
   }
 }
+}
+
+#ulMenu{
+	height: 100%;
+	padding-top: 10px;
+}
+

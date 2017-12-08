@@ -59,8 +59,13 @@ Route::get('/cambiarperfil','CambiarPerfilController@index')->name('cambiar perf
 
 Route::get('/catalogo','CatalogoController@index')->name('catalogo');
 Route::get('/catalogo/getProductosCat', 'CatalogoController@getProductos');
+
 Route::get('/pruebas','PruebasController@prueba');
 Route::resource('requisiciones','SurtirController');
 Route::get('/requisicionessurtidas','SurtirController@surtidas')->name('versurtidas');
 Route::get('/requisicionespendientes','SurtirController@pendientes')->name('verpendientes');
 Route::get('/surtir','SurtirController@surtir')->name('surtir');
+Route::get('/getRequisicionEstado', 'RequisicionEstadoController@getRequisicionEstado');
+Route::get('/getRequisicionEstadoFaltantes', 'RequisicionEstadoController@getRequisicionEstadoFaltantes');
+Route::get('/getRequisicionEstadoConsulta', 'RequisicionEstadoController@getRequisicionEstadoConsulta');
+

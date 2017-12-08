@@ -7,6 +7,9 @@
   
 }
 .thumbnail{
-	height: 500px;
+	min-height: 520px;
 }
 
+#main{
+	margin-bottom: 70px;
+} 

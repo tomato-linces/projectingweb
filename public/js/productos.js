@@ -22,6 +22,9 @@ $(document).ready(function(){
         $('#spanTotal').hide();
         $('#txtNoItem').show();
 
+        $('#panelHide').show('slow');
+        $('#btnFinalizar').attr('disabled', 'true');
+
     });
 
     $('#btnContinuar').on('click', function(e){
@@ -30,6 +33,7 @@ $(document).ready(function(){
         $('#panelHide').hide('slow');
         $('#btnContinuar').hide();
         $('#panelDatos').show('slow');
+        $('#cbxUrgente').focus();
     });
 
     $('#btnFinalizar').on('click', function(e){
@@ -158,9 +162,9 @@ function deleteLinea(btnDelete){
                 $('#spanTotal').text('Total: $');
                 $('#spanTotal').hide();
                 $('#btnFinalizar').attr('disabled', 'true');
+                $('#panelHide').show('slow');
             }
         }
-         
     }
 
     $('#spanTotal').text('Total: $' + getTotal());
@@ -236,7 +240,7 @@ function saveData(){
                                                 _token: CSRF_TOKEN},
                                                 function (data) {
 
-                        console.log(data);
+                        var success = data;
 
                 });
 

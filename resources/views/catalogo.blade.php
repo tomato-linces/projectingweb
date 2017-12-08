@@ -1,15 +1,16 @@
 <link href="{{ asset('css/catalogo.css') }}" rel="stylesheet">
+
 @extends('layouts.app')
 
 @section('content') 
 
 <script src="{{asset('js/productosCat.js')}}"></script>
 
-<div class="col-md-10 col-md-offset-1">
+<div class="col-md-10 col-md-offset-1" id="main">
     <div class="panel panel-default">
 
         <div class="panel-heading" align="center">
-            <strong>Productos</strong> 
+            <h2><strong>Productos</strong> </h2>
         </div>
 
         <div class="panel-body" id="tbProductos">

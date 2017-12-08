@@ -1,12 +1,12 @@
  <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+ 
  <?php $post = TCG\Voyager\Models\Post::first(); ?>
  <?php $categories = TCG\Voyager\Models\Category::first(); ?>
 @extends('layouts.app')
 
 @section('content')
+<script src="{{asset('js/requisiciones.js')}}"></script>
 
-
-    
         <div class="col-md-2 col-md-offset-1">
             <div class="panel panel-default">
                 <div class="panel-heading" id="PerfilDiv">
@@ -15,15 +15,11 @@
 
                 </div>
 
-                <div class="panel-body" align="center">
-                  
-                    <a href="{{ url('/cambiarperfil') }}" type="button" class="btn btn-primary" >Editar Perfil</a>
-                    
-                </div>
+                
             </div>
         </div>
 
-        <div class="col-md-8  ">
+        <div class="col-md-8  " class="footerSolve">
             <div class="panel panel-default">
 
                 <div class="panel-heading">
@@ -45,7 +41,7 @@
                   <a href="{{ url('/productos') }}" type="button" class="btn btn-primary" >Nueva Requisicion</a>
 
                     <br>
-                   <table class="table table-bordered" >
+                   <table class="table table-bordered" id="requisiciones">
                     <br>
                       <thead >
                         <tr >
@@ -54,42 +50,26 @@
                         </tr>
                       </thead>
 
-                      <tbody>
-                        
-                          <tr>
-                            <td>  </th>
-                            <td>  </th>
-                          </tr>
-                       
-                      </tbody>
+                    
 
                     </table>
 
                 @endcan
 
                 @can('edit', $categories)
-                <a href="{{ url('/productos') }}" type="button" class="btn btn-primary" >Surtir Requisicion</a>
-
+               
                     <br>
-                   <table class="table table-bordered" >
+                   <table class="table table-bordered" id="requisicionesFaltantes">
                     <br>
                       <thead >
                         <tr >
                           <th>Requisicion</th>
-                          <th>Estatus</th>
+                          <th>Urgencia</th>
                           <th>Surtir</th>
                         </tr>
                       </thead>
 
-                      <tbody>
-                        
-                          <tr>
-                            <td>  </th>
-                            <td>  </th>
-                            <td><a href="{{ url('/productos') }}" type="button" class="btn btn-primary" >Surtir</a>  </th>
-                          </tr>
-                       
-                      </tbody>
+                      
 
                     </table>
 
@@ -99,6 +79,6 @@
                 </div>
             </div>
         </div>
-    
+   
 
 @endsection

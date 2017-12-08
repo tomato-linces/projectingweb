@@ -13,13 +13,13 @@ class CreateAlmacenesTable extends Migration
      */
     public function up()
     {
-        Schema::create('almacenes', function (Blueprint $table) {
+        Schema::create('bodegas', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nombre');
             $table->string('descripcion');
             $table->integer('capacidad');
-            $table->integer('region_id')->unsigned();
-            $table->foreign('region_id')->references('id')->on('regiones');
+            $table->string('zona');
+            $table->integer('nivel');
             $table->timestamps();
         });
     }

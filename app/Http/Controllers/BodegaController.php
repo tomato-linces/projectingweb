@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\almacenes;
+use App\bodega;
 use Illuminate\Http\Request;
 
-class AlmacenesController extends Controller
+class BodegaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +14,8 @@ class AlmacenesController extends Controller
      */
     public function index()
     {
-        $almacenes = almacenes::all();
-        return $almacenes;
+        $bodegas = bodega::all();
+        return $bodegas;
     }
 
     /**

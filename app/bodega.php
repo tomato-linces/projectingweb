@@ -4,8 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use App\cajas;
-class almacenes extends Model
+class bodega extends Model
 {
+	protected $table = 'bodegas';
 	function espacionDisponible(){
 		return $this->capacidad - $this->cajas()->count();
     }

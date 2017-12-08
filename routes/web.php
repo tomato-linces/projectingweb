@@ -53,7 +53,7 @@ Route::post('/requisiciones/saveDireccion', 'RequisicionesController@saveDirecci
 
 Route::get('/Entradas/bodega', 'EntradaController@index');
 Route::post('/Entradas/guardar', 'EntradaController@guardar');
-Route::resource('almacenes','AlmacenesController');
+Route::resource('bodegas','BodegaController');
 
 Route::get('/cambiarperfil','CambiarPerfilController@index')->name('cambiar perfil');
 

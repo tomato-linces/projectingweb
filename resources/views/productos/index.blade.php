@@ -1,5 +1,4 @@
 <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
-<link href="{{ asset('css/compra.css') }}" rel="stylesheet">
 <link href="{{ asset('css/app.css') }}" rel="stylesheet">
  <?php $post = TCG\Voyager\Models\Post::first(); ?>
 
@@ -22,6 +21,7 @@
 							<label class="col-form-label" for="txtUsuario">Usuario</label>
 							<div class="col-10">
 								<input type="text" class="form-control" id="txtUsuario" value="{{ Auth::user()->name }}" readonly />
+								<input type="number" id="txtIdUser" value="{{ Auth::user()->id }}" style="display: none" />
 							</div>
 						</div>
 
@@ -55,6 +55,7 @@
 							<div class="col-10">
 								<select class="form-control" id="cbxPais">
 									<option value="-1">Seleccione un País</option>
+									<option value="mx">México</option>
 						    	</select>
 							</div>
 						</div>
@@ -66,6 +67,7 @@
 							<div class="col-10">
 								<select class="form-control" id="cbxEstado">
 									<option value="-1">Seleccione un Estado</option>
+									<option value="sin">Sinaloa</option>
 						    	</select>
 							</div>
 						</div>
@@ -75,6 +77,7 @@
 							<div class="col-10">
 								<select class="form-control" id="cbxCiudad">
 									<option value="-1">Seleccione un Ciudad</option>
+									<option value="cln">Culiacán</option>
 						    	</select>
 							</div>
 						</div>
@@ -88,12 +91,22 @@
 							</div>
 						</div>
 
-						<div class="form-group col-sm-3">
+						<div class="form-group col-sm-2">
 							<label class="col-form-label" for="txtNumero">Número</label>
 							<div class="col-10">
 								<input type="number" class="form-control" id="txtNumero" />
 							</div>
 						</div>
+
+						<div class="form-group col-sm-4">
+							<label class="col-form-label" for="txtColonia">Colonia</label>
+							<div class="col-10">
+								<input type="text" class="form-control" id="txtColonia" />
+							</div>
+						</div>
+					</div>
+
+					<div class="form-row col-md-12">
 						<div class="form-group col-sm-3">
 							<label class="col-form-label" for="txtCP">Código Postal</label>
 							<div class="col-10">
@@ -179,13 +192,17 @@
 				      No tiene productos seleccionados
 				    </span>
 
-					<div class="form-row col-md-12">
-						<div class="form-group col-sm-2">
+					<div class="form-row col-md-6">
+						<div class="form-group col-sm-6">
 							<button class="btn pull-left btn-danger col-sm-12" id="btnRemove">Remover productos</button>
 						</div>
-						<div class="form-group col-sm-2">
+						<div class="form-group col-sm-6">
 							<button class="btn pull-left btn-success col-sm-12" id="btnContinuar">Continuar</button>
 						</div>
+					</div>
+
+					<div class="form-row col-md-6">
+							<span class="btn pull-right btn-info col-sm-12" id="spanTotal">Total: $</span>
 					</div>
 				    
 				</div>

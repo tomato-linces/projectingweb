@@ -6,12 +6,10 @@ $(document).ready(function(){
     var url = "/catalogo/";
     
     consultarProductos();
-
-
 });
 
-function consultarProductos(){
 
+function consultarProductos(){
 
     $.get('/catalogo/getProductosCat', function (data) {
         //success data

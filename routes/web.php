@@ -45,6 +45,12 @@ Route::get('/perfil','PerfilController@index')->name('perfil');
 Route::get('/productos','ProductosController@index')->name('productos');
 Route::get('/productos/getProductos', 'ProductosController@getProductos');
 Route::get('/productos/cancelRequisicion', 'ProductosController@cancelRequisicion');
+
+//Rutas Requisiciones
+Route::post('/requisiciones/saveRequisicion', 'RequisicionesController@saveRequisicion');
+Route::post('/requisiciones/saveLineas', 'RequisicionesController@saveLineas');
+Route::post('/requisiciones/saveDireccion', 'RequisicionesController@saveDireccion');
+
 Route::get('/Entradas/bodega', 'EntradaController@index');
 Route::post('/Entradas/guardar', 'EntradaController@guardar');
 Route::resource('almacenes','AlmacenesController');

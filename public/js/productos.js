@@ -6,6 +6,7 @@ $(document).ready(function(){
     var url = "/productos/";
     $('#btnRemove').hide();
     $('#btnContinuar').hide();
+    $('#spanTotal').hide();
 
     consultarProductos();
 
@@ -17,6 +18,8 @@ $(document).ready(function(){
         $('#tbLineas').empty();
         $('#btnRemove').hide();
         $('#btnContinuar').hide();
+        $('#spanTotal').text('Total: $');
+        $('#spanTotal').hide();
         $('#txtNoItem').show();
 
     });
@@ -32,7 +35,7 @@ $(document).ready(function(){
     $('#btnFinalizar').on('click', function(e){
         e.preventDefault();
 
-
+        saveData();
     });
 
     $('#btnCancelar').on('click', function(e){
@@ -75,17 +78,18 @@ function addLinea(btnAdd){
     //Boton que fue precionado
     var iValue = $(btnAdd).val();
 
-    var temp = Productos[iValue - 1];
+    var lineaRequisicion = {};
 
     var iCant = $('#inpCant'+iValue).val();
     var trHTML = '';    
     var exist = false;
 
-    temp['cantidad'] = parseFloat(iCant);
-    temp['total'] = parseFloat(iCant * temp.precio);
+    lineaRequisicion['cantidad'] = parseFloat(iCant);
+    lineaRequisicion['subtotal'] = parseFloat(iCant * Productos[iValue - 1].precio);
+    lineaRequisicion['producto_id'] = Productos[iValue - 1].id;
 
     //Se guarda la linea de requisición en la requisición
-    Requisicion['lineaR' + iValue] = temp;
+    Requisicion[iValue] = lineaRequisicion;
     //console.log(Requisicion);
 
     table = document.getElementById("tbLineas");
@@ -99,11 +103,11 @@ function addLinea(btnAdd){
             var cantidad = tr[i].getElementsByTagName("td")[4];
             var total = tr[i].getElementsByTagName("td")[5];
             
-            temp['cantidad'] = temp['cantidad'] + parseFloat(cantidad.innerHTML);
-            temp['total']    = temp['total'] + parseFloat(total.innerHTML);
+            lineaRequisicion['cantidad'] = lineaRequisicion['cantidad'] + parseFloat(cantidad.innerHTML);
+            lineaRequisicion['subtotal']    = lineaRequisicion['subtotal'] + parseFloat(total.innerHTML);
 
-            cantidad.innerHTML = temp['cantidad'];
-            total.innerHTML = temp['total'];
+            cantidad.innerHTML = lineaRequisicion['cantidad'];
+            total.innerHTML = lineaRequisicion['subtotal'];
         }
          
     }
@@ -111,13 +115,13 @@ function addLinea(btnAdd){
     //Si la linea de requisición no existia se agrega.
     if(!exist){
         trHTML += '<tr>';
-        trHTML += '<td>'+temp.id+'</td>';
-        trHTML += '<td>'+temp.producto+'</td>';
-        trHTML += '<td>'+temp.descripcion+'</td>';
-        trHTML += '<td>'+temp.precio+'</td>';
-        trHTML += '<td>'+temp.cantidad+'</td>';
-        trHTML += '<td>'+temp.total+'</td>';
-        trHTML += '</td><td><button class="btn btn-sm btn-danger" onclick="deleteLinea(this)" value='+ temp.id +'>x</button>';
+        trHTML += '<td>'+lineaRequisicion.producto_id+'</td>';
+        trHTML += '<td>'+Productos[iValue - 1].producto+'</td>';
+        trHTML += '<td>'+Productos[iValue - 1].descripcion+'</td>';
+        trHTML += '<td>'+Productos[iValue - 1].precio+'</td>';
+        trHTML += '<td>'+lineaRequisicion.cantidad+'</td>';
+        trHTML += '<td>'+lineaRequisicion.subtotal+'</td>';
+        trHTML += '</td><td><button class="btn btn-sm btn-danger" onclick="deleteLinea(this)" value='+ lineaRequisicion.producto_id +'>x</button>';
         trHTML += '</tr>';
 
         $('#tbLineas').append(trHTML);
@@ -125,9 +129,10 @@ function addLinea(btnAdd){
         $('#txtNoItem').hide();
         $('#btnRemove').show();
         $('#btnContinuar').show();
+        $('#spanTotal').show();
     }
 
-    
+    $('#spanTotal').text('Total: $' + getTotal());
 }
 
 function deleteLinea(btnDelete){
@@ -143,15 +148,100 @@ function deleteLinea(btnDelete){
         if(td == iValue){
             document.getElementById("tbLineas").deleteRow(i);
             
+            delete Requisicion[iValue];
+
             if($('#tbLineas').get(0).childElementCount < 1){
 
                 $('#btnRemove').hide();
                 $('#btnContinuar').hide();
                 $('#txtNoItem').show();
+                $('#spanTotal').text('Total: $');
+                $('#spanTotal').hide();
                 $('#btnFinalizar').attr('disabled', 'true');
             }
         }
          
     }
+
+    $('#spanTotal').text('Total: $' + getTotal());
+
+}
+
+function getTotal(){
+
+    var totalRequisicion = 0;
+
+    $.each(Requisicion, function (i, item){
+
+        totalRequisicion += Requisicion[i].subtotal;
+
+    });
+
+    //console.log(totalRequisicion);
+    return totalRequisicion;
+}
+
+function saveData(){
+
+    var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+
+        var idUser  = $('#txtIdUser').val();
+        var bUrgente = $('#cbxUrgente').val();
+        var sRegion = $('#cbxRegion').val();
+
+        var sPais       = $('#cbxPais').val();
+        var sEstado     = $('#cbxEstado').val();
+        var sCiudad     = $('#cbxCiudad').val();
+        var sCalle      = $('#txtCalle').val();
+        var iNumero     = $('#txtNumero').val();
+        var sColonia    = $('#txtColonia').val();
+        var iCodigoPost = $('#txtCP').val();
+
+        var iTotal = $('#spanTotal').text().split("$")[1];
+
+        //Guardar la dirección
+        $.post('/requisiciones/saveDireccion',{'pais':sPais,
+                                               'estado': sEstado,
+                                               'ciudad': sCiudad,
+                                               'colonia': sColonia,
+                                               'numero': iNumero,
+                                               'calle': sCalle,
+                                               'cp': iCodigoPost,
+                                                _token: CSRF_TOKEN} ,
+                                                function (data) {
+
+            var idDireccion = data;
+            var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+
+            $.post('/requisiciones/saveRequisicion',{'usuario_id':idUser,
+                                               'region': sRegion,
+                                               'direccion_id': idDireccion,
+                                               'total': iTotal,
+                                               'estado': 0,
+                                               'urgente': bUrgente,
+                                                _token: CSRF_TOKEN} ,
+                                                function (data) {
+
+                var idRequisicion = data;
+
+                $.each(Requisicion, function (i, item)
+                {  
+                    item['requisicion_id'] = idRequisicion;
+                }); 
+
+                //console.log(Requisicion);
+                var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+                
+                $.post('/requisiciones/saveLineas', {Requisicion,
+                                                _token: CSRF_TOKEN},
+                                                function (data) {
+
+                        console.log(data);
+
+                });
+
+            });
+
+        });
 
 }
